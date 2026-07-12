@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', sans-serif;
+  color: #1f1632;
+  background: #fcfaf8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fcfaf8 0%, #f8f1e8 100%);
+  color: #1f1632;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #1c1529 0%, #2d2145 100%);
+}
+
+.dark :root {
+  color: #f7f3f8;
+}
+
+html.dark .bg-white {
+  background-color: #171624 !important;
+}
+
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 {
+  background-color: #1f1b2f !important;
+}
+
+html.dark .bg-\[\#f7f2ed\] {
+  background-color: #201b30 !important;
+}
+
+html.dark .bg-white\/80 {
+  background-color: rgba(30, 24, 44, 0.8) !important;
+}
+
+html.dark .bg-white\/40 {
+  background-color: rgba(30, 24, 44, 0.4) !important;
+}
+
+html.dark .text-slate-800,
+html.dark .text-slate-900 {
+  color: #f5f3fb !important;
+}
+
+html.dark .text-slate-600,
+html.dark .text-slate-500,
+html.dark .text-slate-700 {
+  color: #c5bfdb !important;
+}
+
+html.dark .border-slate-200,
+html.dark .border-white\/60,
+html.dark .border-white\/70 {
+  border-color: rgba(148, 140, 173, 0.2) !important;
+}
+
+html.dark .shadow-sm {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16) !important;
+}
+
+html.dark .rounded-\[2rem\] {
+  background-color: #1f1b2f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(200, 169, 107, 0.35);
+  color: #2b1d47;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(20px, -22px, 0) scale(1.06);
+  }
+}
+
+@keyframes floatPanel {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.aurora-orb {
+  animation: drift 16s ease-in-out infinite;
+}
+
+.floating-card {
+  animation: floatPanel 6s ease-in-out infinite;
+}
+
+.auth-ambient {
+  animation: pulseSoft 8s ease-in-out infinite;
+}
