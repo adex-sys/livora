@@ -23,14 +23,21 @@ export default function ProductDetails() {
 
     addToWishlist(product);
   };
-
-  return (
+return (
     <div>
       <Navbar />
       <main className="mx-auto max-w-7xl px-3 py-10 sm:px-6 sm:py-16 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-            <div className="h-[20rem] rounded-[1.5rem] sm:h-[24rem]" style={{ background: product.accent }} />
+            {product.images?.[0] ? (
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                className="h-[20rem] w-full rounded-[1.5rem] object-cover sm:h-[24rem]"
+              />
+            ) : (
+              <div className="h-[20rem] rounded-[1.5rem] sm:h-[24rem]" style={{ background: product.accent }} />
+            )}
           </div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-600">{product.tag}</p>

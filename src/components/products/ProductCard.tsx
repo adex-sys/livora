@@ -13,14 +13,22 @@ type ProductCardProps = {
 export default function ProductCard({
   product,
   onSave,
-  onAddToCart,
+  onAddToCart, 
   isSaved = false,
   showSave = false,
   compact = false,
 }: ProductCardProps) {
-  return (
+return (
     <div className={`rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-5 ${compact ? 'p-4' : ''}`}>
-      <div className={`rounded-[1.2rem] ${compact ? 'h-40 sm:h-44' : 'h-40 sm:h-48'}`} style={{ background: product.accent }} />
+      {product.images?.[0] ? (
+        <img
+          src={product.images[0]}
+          alt={product.name}
+          className={`rounded-[1.2rem] w-full object-cover ${compact ? 'h-40 sm:h-44' : 'h-40 sm:h-48'}`}
+        />
+      ) : (
+        <div className={`rounded-[1.2rem] ${compact ? 'h-40 sm:h-44' : 'h-40 sm:h-48'}`} style={{ background: product.accent }} />
+      )}
       <div className="mt-4 sm:mt-5">
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-gold-700">{product.tag}</p>
