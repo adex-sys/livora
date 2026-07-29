@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ProductCard from '../components/products/ProductCard';
@@ -9,13 +10,43 @@ const categories = ['All', 'Seating', 'Storage', 'Dining', 'Accent'];
 export default function Shop() {
   const { products, addToCart, toggleWishlist, wishlist } = useStore();
   const [activeCategory, setActiveCategory] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
+
+
+  const [searchInput, setSearchInput] = useState(searchQuery);
+
+  useEffect(() => {
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
 
   const visibleProducts = useMemo(() => {
-    if (activeCategory === 'All') {
-      return products;
+    let result = products;
+
+    if (activeCategory !== 'All') {
+      result = result.filter((product) => product.category === activeCategory);
     }
-    return products.filter((product) => product.category === activeCategory);
-  }, [activeCategory, products]);
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (product) =>
+          product.name.toLowerCase().includes(q) ||
+          product.category.toLowerCase().includes(q) ||
+          product.description.toLowerCase().includes(q)
+      );
+    }
+
+    return result;
+  }, [activeCategory, products, searchQuery]);
+
+  const clearSearch = () => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete('search');
+      return next;
+    });
+  };
 
   return (
     <div>
@@ -27,9 +58,23 @@ export default function Shop() {
             <h1 className="mt-2 font-display text-2xl font-semibold text-purple-950 sm:text-3xl">Shop the curated edit</h1>
           </div>
           <div className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 shadow-sm">
-            {products.length} pieces • Sort by featured
+            {visibleProducts.length} pieces • Sort by featured
           </div>
         </div>
+
+        {searchQuery && (
+          <div className="mt-4 flex items-center gap-2 rounded-full bg-purple-50 px-4 py-2 text-sm text-purple-800 dark:bg-purple-950/40 dark:text-purple-200 w-fit">
+            <span>
+              Showing results for <strong>&ldquo;{searchQuery}&rdquo;</strong>
+            </span>
+            <button
+              onClick={clearSearch}
+              className="ml-1 rounded-full bg-purple-200/60 px-2 py-0.5 text-xs font-medium hover:bg-purple-300/60 dark:bg-purple-800/60"
+            >
+              Clear ✕
+            </button>
+          </div>
+        )}
 
         <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
           {categories.map((category) => (
@@ -44,19 +89,25 @@ export default function Shop() {
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {visibleProducts.map((product) => {
-            const isSaved = wishlist.some((item) => item.id === product.id);
-            return (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onSave={toggleWishlist}
-                onAddToCart={addToCart}
-                isSaved={isSaved}
-                showSave
-              />
-            );
-          })}
+          {visibleProducts.length > 0 ? (
+            visibleProducts.map((product) => {
+              const isSaved = wishlist.some((item) => item.id === product.id);
+              return (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onSave={toggleWishlist}
+                  onAddToCart={addToCart}
+                  isSaved={isSaved}
+                  showSave
+                />
+              );
+            })
+          ) : (
+            <p className="col-span-full text-center text-slate-500 py-10">
+              No products match your search.
+            </p>
+          )}
         </div>
       </main>
       <Footer />
