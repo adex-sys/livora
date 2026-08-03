@@ -142,10 +142,11 @@ export default function About() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.45, delay: index * 0.1 }}
-                  className="relative rounded-[1.75rem] border border-slate-200 bg-white p-6 sm:p-8 sm:pl-20 shadow-sm"
+                  className="relative rounded-[1.75rem] border border-slate-200 bg-white p-6 pl-12 sm:p-8 sm:pl-20 shadow-sm"
                 >
-                  <div className="absolute left-4 top-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-purple-700 text-white shadow-lg">
-                    {index + 1}
+                  <div className="absolute left-4 top-8 sm:top-10 flex h-6 w-6 sm:h-10 sm:w-10 items-center justify-center rounded-full border-2 border-white bg-purple-700 text-white shadow-lg">
+                    <span className="sm:hidden h-2 w-2 rounded-full bg-white" />
+                    <span className="hidden sm:inline">{index + 1}</span>
                   </div>
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
