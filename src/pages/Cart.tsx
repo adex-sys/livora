@@ -30,7 +30,7 @@ export default function Cart() {
                     <p className="mt-1 text-sm text-slate-500">{item.category}</p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <p className="font-semibold text-purple-900">${item.price}</p>
+                    <p className="font-semibold text-purple-900 dark:text-purple-200">${item.price}</p>
                     <button onClick={() => removeFromCart(item.id)} className="text-sm font-semibold text-slate-500 hover:text-purple-700">Remove</button>
                   </div>
                 </div>

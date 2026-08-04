@@ -45,12 +45,12 @@ return (
             </button>
           ) : null}
         </div>
-        <Link to={`/product/${product.id}`} className="mt-1 block font-display text-xl font-semibold text-slate-800 hover:text-purple-700">
+        <Link to={`/product/${product.id}`} className="mt-1 block font-display text-xl font-semibold text-slate-800 dark:text-slate-100 hover:text-purple-700">
           {product.name}
         </Link>
-        <p className="mt-2 text-sm text-slate-600">{product.description}</p>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{product.description}</p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-lg font-semibold text-purple-900">${product.price}</span>
+          <span className="text-lg font-semibold text-purple-900 dark:text-purple-200">${product.price}</span>
           {onAddToCart ? (
             <button
               type="button"

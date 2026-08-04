@@ -33,24 +33,24 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <motion.span initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="inline-flex items-center rounded-full border border-purple-200 bg-white/80 px-3 py-2 text-sm font-medium text-purple-700 shadow-sm sm:px-4">
+              <motion.span initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="inline-flex items-center rounded-full border border-purple-200 bg-white/80 px-3 py-2 text-sm font-medium text-purple-700 dark:text-purple-200 shadow-sm sm:px-4">
                 <Sparkles className="mr-2 h-4 w-4" /> Curated luxury furniture for elevated interiors
               </motion.span>
-              <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.7 }} className="mt-5 text-3xl font-semibold leading-tight text-purple-950 sm:mt-6 sm:text-4xl sm:text-5xl lg:text-6xl">
+              <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.7 }} className="mt-5 text-3xl font-semibold leading-tight text-purple-950 dark:text-purple-100 sm:mt-6 sm:text-4xl sm:text-5xl lg:text-6xl">
                 A cinematic home experience built for bold living.
               </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.7 }} className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-6 sm:text-lg sm:leading-8">
+              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.7 }} className="mt-4 max-w-xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:mt-6 sm:text-lg sm:leading-8">
                 Discover sculptural silhouettes, rich textures, and timeless craftsmanship from LIVORA’s signature collection.
               </motion.p>
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, duration: 0.7 }} className="mt-6 flex flex-wrap gap-3 sm:mt-8 sm:gap-4">
                 <Link to="/shop" className="inline-flex items-center justify-center gap-2 rounded-full bg-purple-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-purple-800 sm:px-6 sm:py-3.5">
                   Shop now <ArrowRight size={16} />
                 </Link>
-                <Link to="/register" className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-purple-300 hover:text-purple-700 sm:px-6 sm:py-3.5">
+                <Link to="/register" className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:border-purple-300 hover:text-purple-700 sm:px-6 sm:py-3.5">
                   Join LIVORA
                 </Link>
               </motion.div>
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-8 flex flex-wrap gap-3 text-sm text-slate-600 sm:mt-10 sm:gap-4">
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-8 flex flex-wrap gap-3 text-sm text-slate-600 dark:text-slate-300 sm:mt-10 sm:gap-4">
                 <span className="rounded-full bg-white/80 px-3 py-2 shadow-sm sm:px-4">Premium finishes</span>
                 <span className="rounded-full bg-white/80 px-3 py-2 shadow-sm sm:px-4">Made-to-order</span>
                 <span className="rounded-full bg-white/80 px-3 py-2 shadow-sm sm:px-4">Global delivery</span>
@@ -126,21 +126,21 @@ export default function Home() {
         </section>
 
         <section className="px-3 pb-16 sm:px-6 sm:pb-20 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-[2rem] border border-purple-100 bg-white/70 p-6 shadow-sm backdrop-blur sm:p-8 lg:p-10">
+          <div className="mx-auto max-w-7xl rounded-[2rem] border border-purple-100 bg-white/70 p-6 shadow-sm backdrop-blur sm:p-8 lg:p-10 dark:border-slate-700 dark:bg-slate-950/80">
             <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-600">From first glance to first night</p>
-                <h2 className="mt-3 font-display text-2xl font-semibold text-purple-950 sm:text-3xl">Your dream room arrives in motion.</h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">Every piece is selected to feel elevated, comfortable, and instantly right in your space.</p>
+                <h2 className="mt-3 font-display text-2xl font-semibold text-purple-950 dark:text-purple-100 sm:text-3xl">Your dream room arrives in motion.</h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">Every piece is selected to feel elevated, comfortable, and instantly right in your space.</p>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
                 {moments.map((moment, index) => {
                   const Icon = moment.icon;
                   return (
-                    <motion.div key={moment.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className="rounded-[1.2rem] border border-slate-200 bg-[#fcfaf8] p-4 shadow-sm">
+                    <motion.div key={moment.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className="rounded-[1.2rem] border border-slate-200 bg-[#fcfaf8] p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
                       <Icon size={20} className="text-purple-700" />
-                      <h3 className="mt-3 font-semibold text-slate-800">{moment.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-600">{moment.text}</p>
+                      <h3 className="mt-3 font-semibold text-slate-800 dark:text-slate-100">{moment.title}</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{moment.text}</p>
                     </motion.div>
                   );
                 })}

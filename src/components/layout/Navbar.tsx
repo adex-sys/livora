@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Heart, ShoppingBag, Menu, Search, X, Moon, Sun } from 'lucide-react';
+import { Heart, ShoppingBag, Menu, Search, Settings, X, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useStore } from '../../context/StoreContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -19,9 +19,11 @@ export default function Navbar() {
   const { cartCount, wishlistCount, products } = useStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const { theme, toggleTheme } = useTheme();
   const searchRef = useRef<HTMLDivElement>(null);
+  const settingsRef = useRef<HTMLDivElement>(null);
 
   const suggestions = query.trim()
     ? products
@@ -37,6 +39,9 @@ export default function Navbar() {
     function handleClickOutside(e: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setIsSearchOpen(false);
+      }
+      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
+        setIsSettingsOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -150,6 +155,52 @@ export default function Navbar() {
             )}
           </div>
 
+          <div className="relative" ref={settingsRef}>
+            <button
+              type="button"
+              onClick={() => setIsSettingsOpen((prev) => !prev)}
+              className="inline-flex rounded-full border border-slate-200 bg-white/80 p-2.5 text-slate-600 transition hover:border-purple-200 hover:text-purple-700 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200"
+              aria-label="Open settings"
+            >
+              <Settings size={18} />
+            </button>
+            {isSettingsOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute right-0 top-14 z-50 w-80 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900"
+              >
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Settings</p>
+                <div className="mt-4 space-y-3 text-sm">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      toggleTheme();
+                      setIsSettingsOpen(false);
+                    }}
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
+                  >
+                    Theme: <span className="font-semibold">{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                  </button>
+                  <Link
+                    to="/settings"
+                    onClick={() => setIsSettingsOpen(false)}
+                    className="block rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
+                  >
+                    Manage preferences
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setIsSettingsOpen(false)}
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
+                  >
+                    Account settings
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
           <button
             type="button"
             onClick={toggleTheme}
@@ -226,6 +277,13 @@ export default function Navbar() {
               className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 hover:bg-purple-50 hover:text-purple-700 dark:text-slate-300 dark:hover:bg-slate-900/70 dark:hover:text-purple-300"
             >
               Cart
+            </Link>
+            <Link
+              to="/settings"
+              onClick={() => setIsMenuOpen(false)}
+              className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 hover:bg-purple-50 hover:text-purple-700 dark:text-slate-300 dark:hover:bg-slate-900/70 dark:hover:text-purple-300"
+            >
+              Settings
             </Link>
           </div>
         </motion.div>

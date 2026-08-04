@@ -1,18 +1,30 @@
 import { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Eye, EyeOff, Lock, Mail, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { useAuth } from '../context/Authcontext';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const { login, isLoading } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    window.setTimeout(() => setIsSubmitting(false), 900);
+    setError(null);
+
+    const result = await login(email, password);
+
+    if (result.success) {
+      navigate('/');
+    } else {
+      setError(result.message || 'Something went wrong');
+    }
   };
 
   return (
@@ -39,26 +51,52 @@ export default function Login() {
             <div className="relative">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gold-600">Log in</p>
               <h2 className="mt-3 font-display text-3xl font-semibold text-purple-950">Welcome home</h2>
+
+              {error && (
+                <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                  {error}
+                </div>
+              )}
+
               <div className="mt-6 space-y-4">
                 <label className="block text-sm font-medium text-slate-700">
                   Email
                   <div className="mt-2 flex items-center rounded-full border border-slate-200 bg-white px-4 py-3 shadow-sm">
                     <Mail size={16} className="mr-3 text-slate-400" />
-                    <input className="w-full bg-transparent outline-none" placeholder="you@example.com" />
+                    <input
+                      className="w-full bg-transparent outline-none"
+                      placeholder="you@example.com"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
                   </div>
                 </label>
                 <label className="block text-sm font-medium text-slate-700">
                   Password
                   <div className="mt-2 flex items-center rounded-full border border-slate-200 bg-white px-4 py-3 shadow-sm">
                     <Lock size={16} className="mr-3 text-slate-400" />
-                    <input className="w-full bg-transparent outline-none" placeholder="Enter password" type={showPassword ? 'text' : 'password'} />
+                    <input
+                      className="w-full bg-transparent outline-none"
+                      placeholder="Enter password"
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
                     <button type="button" onClick={() => setShowPassword((value) => !value)} className="ml-2 text-slate-500">
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
                   </div>
                 </label>
-                <motion.button whileTap={{ scale: 0.97 }} type="submit" className="flex w-full items-center justify-center gap-2 rounded-full bg-purple-700 px-4 py-3 font-semibold text-white shadow-lg shadow-purple-200">
-                  {isSubmitting ? 'Opening your space…' : 'Continue'}
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-purple-700 px-4 py-3 font-semibold text-white shadow-lg shadow-purple-200 disabled:opacity-60"
+                >
+                  {isLoading ? 'Opening your space…' : 'Continue'}
                   <ArrowRight size={16} />
                 </motion.button>
               </div>

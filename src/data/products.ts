@@ -1,5 +1,5 @@
 export type Product = {
-  id: number;
+  id: string | number;
   name: string;
   price: number;
   category: string;
@@ -11,7 +11,7 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Velora Lounge Chair',
     price: 1240,
     category: 'Seating',
@@ -21,7 +21,7 @@ export const products: Product[] = [
     images: ['https://res.cloudinary.com/ejmg0vku/image/upload/v1784153785/Parkrose_Chair_Watson_Velvet_Moss_jgj17h.jpg']
   },
   {
-    id: 2,
+    id: '2',
     name: 'Aurora Sideboard',
     price: 2180,
     category: 'Storage',
@@ -31,7 +31,7 @@ export const products: Product[] = [
     images:[ 'https://res.cloudinary.com/ejmg0vku/image/upload/v1784155327/Fairmont_Park_Aurora_Kaszmir_4S1D_sideboard_with_drawers___Wayfair_co_osijur.jpg' ]
   },
   {
-    id: 3,
+    id: '3',
     name: 'Soleil Dining Table',
     price: 3490,
     category: 'Dining',
@@ -41,7 +41,7 @@ export const products: Product[] = [
     images: ['https://res.cloudinary.com/ejmg0vku/image/upload/v1784155636/DCWe%CC%81ditions_dcw_editions___Profil_Instagram_tatzol.jpg']
   },
   {
-    id: 4,
+    id: '4',
     name: 'Monaco Sofa',
     price: 4980,
     category: 'Seating',
@@ -51,7 +51,7 @@ export const products: Product[] = [
     images:[ 'https://res.cloudinary.com/ejmg0vku/image/upload/v1784155875/Modern_Bohemian_Monaco_Collection_Distressed_Area_Rug_Indoor_Outdoor_Floral_Multicolor_lbuxsl.jpg' ]
   },
   {
-    id: 5,
+    id: '5',
     name: 'Sculpted Armchair',
     price: 1680,
     category: 'Accent',
@@ -61,7 +61,7 @@ export const products: Product[] = [
     images:[ 'https://res.cloudinary.com/ejmg0vku/image/upload/v1784156424/LIVORA_Lounge_Chair_bgiofj.png' ]
   },
   {
-    id: 6,
+    id: '6',
     name: 'Oak Console',
     price: 2420,
     category: 'Storage',

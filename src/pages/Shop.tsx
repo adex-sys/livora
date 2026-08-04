@@ -3,18 +3,23 @@ import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ProductCard from '../components/products/ProductCard';
+import ProductModal from '../components/products/ProductModal';
 import { useStore } from '../context/StoreContext';
+import type { Product } from '../data/products';
 
 const categories = ['All', 'Seating', 'Storage', 'Dining', 'Accent'];
 
 export default function Shop() {
-  const { products, addToCart, toggleWishlist, wishlist } = useStore();
+  const { products, addToCart, toggleWishlist, wishlist, fetchProducts, productsLoading, productsError } = useStore();
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
-
-
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchInput, setSearchInput] = useState(searchQuery);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, [fetchProducts]);
 
   useEffect(() => {
     setSearchInput(searchQuery);
@@ -33,7 +38,7 @@ export default function Shop() {
         (product) =>
           product.name.toLowerCase().includes(q) ||
           product.category.toLowerCase().includes(q) ||
-          product.description.toLowerCase().includes(q)
+          (product.description ?? '').toLowerCase().includes(q)
       );
     }
 
@@ -88,28 +93,47 @@ export default function Shop() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {visibleProducts.length > 0 ? (
-            visibleProducts.map((product) => {
-              const isSaved = wishlist.some((item) => item.id === product.id);
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onSave={toggleWishlist}
-                  onAddToCart={addToCart}
-                  isSaved={isSaved}
-                  showSave
-                />
-              );
-            })
-          ) : (
-            <p className="col-span-full text-center text-slate-500 py-10">
-              No products match your search.
-            </p>
-          )}
-        </div>
+        {productsLoading && (
+          <p className="mt-10 text-center text-slate-500 py-10">Loading products…</p>
+        )}
+
+        {productsError && (
+          <p className="mt-10 text-center text-red-500 py-10">
+            Couldn't load products: {productsError}
+          </p>
+        )}
+
+        {!productsLoading && !productsError && (
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {visibleProducts.length > 0 ? (
+              visibleProducts.map((product) => {
+                const isSaved = wishlist.some((item) => item.id === product.id);
+                return (
+                  <div key={product.id} onClick={() => setSelectedProduct(product)} className="cursor-pointer">
+                    <ProductCard
+                      product={product}
+                      onSave={toggleWishlist}
+                      onAddToCart={addToCart}
+                      isSaved={isSaved}
+                      showSave
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <p className="col-span-full text-center text-slate-500 py-10">
+                No products match your search.
+              </p>
+            )}
+          </div>
+        )}
       </main>
+      <ProductModal
+        product={selectedProduct}
+        isOpen={Boolean(selectedProduct)}
+        onClose={() => setSelectedProduct(null)}
+        onAddToCart={addToCart}
+      />
       <Footer />
     </div>
   );

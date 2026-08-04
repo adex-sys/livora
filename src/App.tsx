@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import AppRoutes from './routes/route';
+import { AuthProvider, useAuth } from './context/Authcontext';
 
-function App() {
+function AppShell() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const { checkAuth } = useAuth();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -50,6 +56,14 @@ function App() {
         </motion.div>
       </AnimatePresence>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppShell />
+    </AuthProvider>
   );
 }
 

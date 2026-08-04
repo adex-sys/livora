@@ -27,7 +27,7 @@ export default function Wishlist() {
                 <h3 className="mt-4 font-display text-xl font-semibold text-slate-800">{item.name}</h3>
                 <p className="mt-2 text-sm text-slate-600">{item.description}</p>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="font-semibold text-purple-900">${item.price}</span>
+                  <span className="font-semibold text-purple-900 dark:text-purple-200">${item.price}</span>
                   <div className="flex gap-3">
                     <button onClick={() => removeFromWishlist(item.id)} className="text-sm font-semibold text-slate-500 hover:text-purple-700">Remove</button>
                     <button onClick={() => addToCart(item)} className="rounded-full bg-purple-700 px-4 py-2 text-sm font-semibold text-white">Add to cart</button>

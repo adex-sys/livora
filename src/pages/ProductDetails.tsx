@@ -46,7 +46,7 @@ return (
             <div className="mt-8 flex flex-col gap-4 rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
               <div>
                 <p className="text-sm text-slate-500">Starting at</p>
-                <p className="text-2xl font-semibold text-purple-900">${product.price}</p>
+                <p className="text-2xl font-semibold text-purple-900 dark:text-purple-200">${product.price}</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <button

@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import About from '../pages/About';
 import Contact from '../pages/Contact';
+import Settings from '../pages/Settings';
 import NotFound from '../pages/NotFound';
 
 type AppRoutesProps = {
@@ -30,6 +31,7 @@ export default function AppRoutes({ location }: AppRoutesProps) {
       <Route path="/register" element={<Register />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/settings" element={<Settings />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
